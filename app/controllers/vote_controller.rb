@@ -9,7 +9,14 @@ class VoteController < IssuesController
   end
 
   def down
-    vote(:down)
+#    vote(:down)
+    find_issue
+	authorize
+    @issue.vote(:down)
+    @issue.save
+    @issue.del_vote
+    reset_invocation_response
+    redirect_to :controller => 'issues', :action => 'show', :id => @issue
   end
 
   private

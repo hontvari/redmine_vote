@@ -62,6 +62,15 @@ module Juixe
           end
           rtn
         end
+	def del_vote(user=User.current)
+            self.votes.each { |v|
+              if user.id == v.user_id
+		
+#		self.votes.delete(v)
+		Vote.destroy(v.id)
+              end
+            }
+	end
       end
     end
   end

@@ -13,11 +13,24 @@ class IssuesVoteHook < Redmine::Hook::ViewListener
 	  <% end %>
 
     <% @project = @issue.project %>
-	  <% if (authorize_for('issues', 'vote') && !@issue.voted_by_user?) || authorize_for('issues', 'multiple_vote') %>
-      <%= link_to("", { :controller => 'vote', :action => 'up',   :id => @issue }, :class => 'icon icon-vote-up'  , :method => 'post') %>
-      <%= link_to("", { :controller => 'vote', :action => 'down', :id => @issue }, :class => 'icon icon-vote-down', :method => 'post') %>
+    <% if (authorize_for('issues', 'vote') || authorize_for('issues', 'multiple_vote')) %>
+	<% if !issue.voted_by_user? %>
+	      <%= link_to("", { :controller => 'vote', :action => 'up',   :id => @issue }, :class => 'icon icon-vote-up'  , :method => 'post') %>
+	<% else %>
+	      <%= link_to("", { :controller => 'vote', :action => 'down', :id => @issue }, :class => 'icon icon-vote-down', :method => 'post') %>
+	<% end %>
     <% end %>
 
     </td></tr>
 END
 end
+
+
+
+
+
+
+
+
+
+
